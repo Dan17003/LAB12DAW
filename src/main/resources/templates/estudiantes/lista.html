@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Estudiantes</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .navbar {
+            background: #228B22;
+            color: #fff;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 40px;
+        }
+        .navbar-link {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 500;
+        }
+        .navbar-link:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 32px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        h1 {
+            margin-top: 0;
+            margin-bottom: 24px;
+        }
+        .btn {
+            padding: 6px 18px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 6px;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .btn-green {
+            background: #2ecc40;
+        }
+        .btn-blue {
+            background: #2196f3;
+        }
+        .btn-red {
+            background: #e74c3c;
+        }
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 18px;
+        }
+        .styled-table th, .styled-table td {
+            padding: 12px 10px;
+            text-align: center;
+        }
+        .styled-table thead tr {
+            background-color: #e3f0ff;
+            color: #222;
+            font-weight: bold;
+        }
+        .styled-table tbody tr {
+            background-color: #b3d1ff;
+        }
+        .styled-table tbody tr:nth-child(even) {
+            background-color: #cce0ff;
+        }
+        .styled-table th, .styled-table td {
+            border: 1px solid #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <span class="navbar-title">Spring Boot</span>
+    <a th:href="@{/estudiantes}" class="navbar-link">Lista de estudiantes</a>
+</div>
+<div class="container">
+    <h1>Lista de estudiantes</h1>
+    <a th:href="@{/estudiantes/nuevo}" class="btn btn-green">crear estudiante</a>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>CORREO</th>
+            <th>CARRERA</th>
+            <th>EDITAR</th>
+            <th>ELIMINAR</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="estudiante : ${estudiantes}">
+            <td th:text="${estudiante.id}"></td>
+            <td th:text="${estudiante.nombre}"></td>
+            <td th:text="${estudiante.apellido}"></td>
+            <td th:text="${estudiante.correo}"></td>
+            <td th:text="${estudiante.carrera}"></td>
+            <td>
+                <a th:href="@{'/estudiantes/editar/' + ${estudiante.id}}" class="btn btn-blue">editar</a>
+            </td>
+            <td>
+                <a th:href="@{'/estudiantes/eliminar/' + ${estudiante.id}}" class="btn btn-red"
+                   onclick="return confirm('¿Seguro de eliminar?')">eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
